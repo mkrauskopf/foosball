@@ -24,12 +24,29 @@ repositories {
 }
 
 dependencies {
+
+    // Spring
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    runtimeOnly 'com.h2database:h2'
-    compileOnly 'org.projectlombok:lombok'
     providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+
+    // DB
+    runtimeOnly 'com.h2database:h2'
+
+    // Tools
+    compileOnly 'org.projectlombok:lombok'
+    compile 'com.google.guava:guava:27.0-jre'
+
+    // Tests
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.+'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.+'
+
+}
+
+// Needed for JUnit 5.
+test {
+    useJUnitPlatform()
 }

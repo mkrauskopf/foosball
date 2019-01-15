@@ -8,8 +8,11 @@ Spring stuff (Boot, JPA, Data, Security, Actuator,  ...).
 
 ### Building the application
 
-`./gradlew bootWar`: Assembles an executable war archive containing webapp which can be subsequently run
-with `java -jar ./build/libs/foosball-0.0.1-SNAPSHOT.war` or deployed to an application server.
+`./gradlew bootWar`: Assembles an executable war archive containing webapp which can be subsequently run with:
+
+  `java -jar ./build/libs/foosball-0.0.1-SNAPSHOT.war`
+  
+or deployed to an application server.
 
 ### Implementation Notes
 

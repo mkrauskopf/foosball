@@ -46,6 +46,7 @@ to play with the REST API (for `GET` browser URL is enough).
 * Use the [annotation approach](https://www.baeldung.com/spring-security-expressions-basic.) for checking roles.
 * Integration testing.
 * A better model for winners and/or more effective fetching of statistics.
+* Some code would probably deserve more Javadoc.
 
 
 #### REST API

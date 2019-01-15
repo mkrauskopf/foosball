@@ -48,14 +48,6 @@ public final class Player {
     @Column(name = "active")
     private int active;
 
-    public long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
     @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinTable(
             name = "player_role",

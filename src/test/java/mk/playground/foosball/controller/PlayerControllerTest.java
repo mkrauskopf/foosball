@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import mk.playground.foosball.dto.PlayerStatisticsInfo;
 import mk.playground.foosball.model.Player;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -27,6 +28,14 @@ class PlayerControllerTest {
         assertThat(allPlayers)
                 .extracting(Player::getName)
                 .containsExactly("martin", "honza", "katka", "boris");
+    }
+
+    @Test
+    public void statistics() {
+        Player martin = playerController.getAllPlayers().get(0);
+        PlayerStatisticsInfo statistics = playerController.getStatistics(martin.getId());
+        assertThat(statistics.getNOfWins()).isEqualTo(2);
+        assertThat(statistics.getNOfLooses()).isEqualTo(0);
     }
 
 }

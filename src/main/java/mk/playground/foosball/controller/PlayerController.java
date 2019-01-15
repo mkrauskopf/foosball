@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import mk.playground.foosball.dto.PlayerStatisticsInfo;
 import mk.playground.foosball.model.Player;
 import mk.playground.foosball.repository.PlayerRepository;
 import mk.playground.foosball.service.PlayerService;
@@ -35,10 +36,16 @@ public class PlayerController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Player> getPlayerById(@PathVariable(value = "id") long playerId) {
-        return ResponseEntity.ok().body(repository.findById(playerId).get());
+        Player player = repository.findById(playerId).get();
+        return ResponseEntity.ok().body(player);
     }
 
-    @RequestMapping(value = "/player", method = RequestMethod.POST)
+    @GetMapping("/{id}/statistics")
+    public PlayerStatisticsInfo getStatistics(@PathVariable(value = "id") long playerId) {
+        return service.getStatistics(playerId);
+    }
+
+    @RequestMapping(value = "/", method = RequestMethod.POST)
     public ResponseEntity<Player> create(@RequestBody Player player) {
         return new ResponseEntity<>(service.create(player), HttpStatus.CREATED);
     }

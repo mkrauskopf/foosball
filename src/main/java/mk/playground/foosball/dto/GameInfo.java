@@ -1,4 +1,4 @@
-package mk.playground.foosball.controller;
+package mk.playground.foosball.dto;
 
 
 import java.util.List;

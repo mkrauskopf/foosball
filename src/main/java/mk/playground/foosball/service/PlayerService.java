@@ -3,20 +3,23 @@ package mk.playground.foosball.service;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import mk.playground.foosball.dto.PlayerStatisticsInfo;
 import mk.playground.foosball.model.Player;
+import mk.playground.foosball.repository.GameRepository;
 import mk.playground.foosball.repository.PlayerRepository;
-import mk.playground.foosball.repository.RoleRepository;
 
 @Service
 public class PlayerService {
 
-    private final PlayerRepository repository;
+    private final PlayerRepository playerRepository;
+    private final GameRepository gameRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public PlayerService(PlayerRepository playerRepository,
-                         RoleRepository roleRepository,
+                         GameRepository gameRepository,
                          BCryptPasswordEncoder bCryptPasswordEncoder) {
-        this.repository = playerRepository;
+        this.playerRepository = playerRepository;
+        this.gameRepository = gameRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
@@ -29,7 +32,10 @@ public class PlayerService {
     public Player create(Player player) {
         player.setPassword(bCryptPasswordEncoder.encode(player.getPassword()));
         player.setActive(1);
-        return repository.save(player);
+        return playerRepository.save(player);
     }
 
+    public PlayerStatisticsInfo getStatistics(long playerId) {
+        return new PlayerStatisticsInfo(gameRepository.countWins(playerId), gameRepository.countLooses(playerId));
+    }
 }

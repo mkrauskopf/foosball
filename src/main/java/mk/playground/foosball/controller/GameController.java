@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import mk.playground.foosball.dto.GameInfo;
 import mk.playground.foosball.model.Game;
 import mk.playground.foosball.repository.GameRepository;
 import mk.playground.foosball.service.GameService;

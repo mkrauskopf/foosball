@@ -6,11 +6,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import mk.playground.foosball.dto.PlayerInfo;
 import mk.playground.foosball.dto.PlayerStatisticsInfo;
 import mk.playground.foosball.model.Player;
 import mk.playground.foosball.repository.PlayerRepository;
@@ -45,8 +46,12 @@ public class PlayerController {
         return service.getStatistics(playerId);
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.POST)
-    public ResponseEntity<Player> create(@RequestBody Player player) {
+    @PostMapping(value = "/")
+    public ResponseEntity<Player> create(@RequestBody PlayerInfo playerInfo) {
+        Player player = Player.builder()
+                .name(playerInfo.getName())
+                .password(playerInfo.getPassword())
+                .build();
         return new ResponseEntity<>(service.create(player), HttpStatus.CREATED);
     }
 

@@ -1,5 +1,15 @@
-Yet another playground. This time for Java web application development, so far mainly for Spring stuff (Boot, JPA,
-Data, Security, Actuator,  ...).
+Yet another playground for educational purposes. This time for Java web application development, so far mainly for
+Spring stuff (Boot, JPA, Data, Security, Actuator,  ...).
+
+
+### Running the application
+
+`./gradlew bootRun`
+
+### Building the application
+
+`./gradlew bootWar`: Assembles an executable war archive containing webapp which can be subsequently run
+with `java -jar ./build/libs/foosball-0.0.1-SNAPSHOT.war` or deployed to an application server.
 
 ### Implementation Notes
 
@@ -23,7 +33,7 @@ to play with the REST API (for `GET` browser URL is enough).
 ### To be done...
 ... when having a need, or more time, and the right mood. :)
 
-* Use [annotation approach](https://www.baeldung.com/spring-security-expressions-basic.) for checking roles.
+* Use the [annotation approach](https://www.baeldung.com/spring-security-expressions-basic.) for checking roles.
 * Integration testing.
 * A better model for winners and/or more effective fetching of statistics.
 
@@ -36,8 +46,8 @@ to play with the REST API (for `GET` browser URL is enough).
 
 ##### Players
 * `GET` http://localhost:8080/player/: lists all players
-* `GET` http://localhost:8080/player/2/: gets information about player with ID 2
-* `POST` http://localhost:8080/player/: creates new player (**admin only**). Sample JSON body:
+* `GET` http://localhost:8080/player/2/: gets information about the player with ID 2
+* `POST` http://localhost:8080/player/: creates a new player (**admin only**). Sample JSON body:
    ```json
     {
       "name": "lojza",
@@ -48,7 +58,7 @@ to play with the REST API (for `GET` browser URL is enough).
 
 ##### Games
 * `GET` http://localhost:8080/game/: lists all games
-* `GET` http://localhost:8080/game/2/: gets information about game with ID 1
+* `GET` http://localhost:8080/game/2/: gets information about the game with ID 1
 * `POST` http://localhost:8080/game/: creates new game. Sample JSON body:
     ```json
     {

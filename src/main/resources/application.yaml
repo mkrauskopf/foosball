@@ -1,0 +1,11 @@
+spring:
+  # Show SQL queries during runtime.
+  jpa.show-sql: true
+
+  # Used by the Spring security. See `SecurityConfiguration.configure`.
+  queries.player-query: select name, password, active from player where name=?
+  queries.roles-query: >
+    select p.name, r.role
+      from player p inner join player_role pr on(p.id=pr.player_id)
+        inner join role r on(pr.role_id=r.id)
+        where p.name=?

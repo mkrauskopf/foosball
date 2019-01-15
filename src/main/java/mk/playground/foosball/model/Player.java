@@ -1,16 +1,23 @@
 package mk.playground.foosball.model;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
-import com.google.common.annotations.VisibleForTesting;
-
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -19,10 +26,9 @@ import lombok.ToString;
 @Table(name = "player")
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Data
 @ToString
-// NOTE: Lombok and Jackson does not work well together. Getters in the source code are still needed.
-//       See e.g.: https://stackoverflow.com/questions/51464720/lombok-1-18-0-and-jackson-2-9-6-not-working-together
 public final class Player {
 
     @Id
@@ -34,13 +40,13 @@ public final class Player {
     @Size(min = 3, max = 20)
     private String name;
 
-    /**
-     * Production does not need this. It likely uses no-arg ctor with reflection.
-     */
-    @VisibleForTesting
-    public Player(String name) {
-        this.name = name;
-    }
+    @Column(name = "password")
+    @Size(min = 5, message = "*Your password must have at least 5 characters")
+    @NotEmpty(message = "*Please provide your password")
+    private String password;
+
+    @Column(name = "active")
+    private int active;
 
     public long getId() {
         return id;
@@ -49,5 +55,13 @@ public final class Player {
     public String getName() {
         return name;
     }
+
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "player_role",
+            joinColumns = @JoinColumn(name = "player_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> roles;
 
 }

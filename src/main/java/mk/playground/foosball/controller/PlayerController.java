@@ -2,7 +2,6 @@ package mk.playground.foosball.controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,13 +13,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 import mk.playground.foosball.model.Player;
 import mk.playground.foosball.repository.PlayerRepository;
+import mk.playground.foosball.service.PlayerService;
 
 @RestController
 @RequestMapping("/player")
 public class PlayerController {
 
-    @Autowired
-    private PlayerRepository repository;
+    private final PlayerRepository repository;
+
+    private final PlayerService service;
+
+    public PlayerController(PlayerRepository repository, PlayerService service) {
+        this.repository = repository;
+        this.service = service;
+    }
 
     @GetMapping(value = "/")
     public List<Player> getAllPlayers() {
@@ -34,8 +40,7 @@ public class PlayerController {
 
     @RequestMapping(value = "/player", method = RequestMethod.POST)
     public ResponseEntity<Player> create(@RequestBody Player player) {
-        Player item = repository.save(player);
-        return new ResponseEntity<>(item, HttpStatus.CREATED);
+        return new ResponseEntity<>(service.create(player), HttpStatus.CREATED);
     }
 
 }

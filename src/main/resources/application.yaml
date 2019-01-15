@@ -9,3 +9,6 @@ spring:
       from player p inner join player_role pr on(p.id=pr.player_id)
         inner join role r on(pr.role_id=r.id)
         where p.name=?
+
+# Allow to play with Spring Boot Actuator.
+management.endpoints.web.exposure.include: '*'

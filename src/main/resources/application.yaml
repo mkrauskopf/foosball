@@ -12,3 +12,10 @@ spring:
 
 # Allow to play with Spring Boot Actuator.
 management.endpoints.web.exposure.include: '*'
+
+logging:
+  level:
+    org.springframework.security: INFO
+    org.springframework.web: INFO
+    org.springframework.boot: INFO
+    ROOT: INFO

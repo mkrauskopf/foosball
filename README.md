@@ -14,6 +14,13 @@ Spring stuff (Boot, JPA, Data, Security, Actuator,  ...).
   
 or deployed to an application server.
 
+### Users
+
+There are bunch of predefined users which can be used:
+
+* username: _martin_, password: _martin_, role: _user_
+* username: _admin_, password: _admin_, role: _admin_
+
 ### Implementation Notes
 
 #### General

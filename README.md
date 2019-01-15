@@ -9,6 +9,7 @@ and more JDBC drivers on the classpath.
 * Security is JDBC-based using tables `player`(authentication), `role`(authorization) and the `player_role` join-table.
   * Passwords are hashed with [bcrypt](https://en.wikipedia.org/wiki/Bcrypt) function before stored in the database.
 * Spring Boot Actuator is available. Go to http://localhost:8080/actuator/.
+* CSRF is disabled for now. To make life easier for REST clients.
 
 #### Test
 * Tests should use own data instead of the ones set up on the `ApplicationReadyEvent`.

@@ -53,13 +53,18 @@ public class FoosballApplication {
      */
     @EventListener(ApplicationReadyEvent.class)
     public void initialFewPlayersAfterStartup() {
-        LOG.info("Adding four players for demonstrating purposes.");
+        LOG.info("Adding four players and admin for demonstrating purposes.");
+
+        // players with 'user' role
         Role userRole = roleRepository.findByRole("USER");
         List<Long> playersIds = Stream.of("martin", "honza", "katka", "boris")
                 .map(name -> player(name, userRole)) // use name as password
                 .map(playerService::create)
                 .map(Player::getId)
                 .collect(toList());
+
+        // admin
+        playerService.create(player("admin", roleRepository.findByRole("ADMIN")));
 
         LOG.info("Adding two games for demonstrating purposes.");
         gameService.create(playersIds, playersIds.get(0), playersIds.get(1));

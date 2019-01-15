@@ -23,7 +23,7 @@ to play with the REST API (for `GET` browser URL is enough).
 ### To be done...
 ... when having a need, or more time, and the right mood. :)
 
-* Allow player creation only by `ADMIN` role.
+* Use [annotation approach](https://www.baeldung.com/spring-security-expressions-basic.) for checking roles.
 * Integration testing.
 * A better model for winners and/or more effective fetching of statistics.
 
@@ -37,7 +37,7 @@ to play with the REST API (for `GET` browser URL is enough).
 ##### Players
 * `GET` http://localhost:8080/player/: lists all players
 * `GET` http://localhost:8080/player/2/: gets information about player with ID 2
-* `POST` http://localhost:8080/player/: creates new player. Sample JSON body:
+* `POST` http://localhost:8080/player/: creates new player (**admin only**). Sample JSON body:
    ```json
     {
       "name": "lojza",

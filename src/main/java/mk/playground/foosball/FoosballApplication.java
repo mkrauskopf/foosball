@@ -1,5 +1,6 @@
 package mk.playground.foosball;
 
+import java.util.List;
 import java.util.stream.Stream;
 
 import org.slf4j.Logger;
@@ -15,7 +16,10 @@ import com.google.common.collect.ImmutableSet;
 import mk.playground.foosball.model.Player;
 import mk.playground.foosball.model.Role;
 import mk.playground.foosball.repository.RoleRepository;
+import mk.playground.foosball.service.GameService;
 import mk.playground.foosball.service.PlayerService;
+
+import static java.util.stream.Collectors.toList;
 
 @SpringBootApplication
 public class FoosballApplication {
@@ -24,11 +28,14 @@ public class FoosballApplication {
 
     private final PlayerService playerService;
 
+    private final GameService gameService;
+
     private final RoleRepository roleRepository;
 
     @Autowired
-    public FoosballApplication(PlayerService playerRepository, RoleRepository roleRepository) {
-        this.playerService = playerRepository;
+    public FoosballApplication(PlayerService playerService, GameService gameService, RoleRepository roleRepository) {
+        this.playerService = playerService;
+        this.gameService = gameService;
         this.roleRepository = roleRepository;
     }
 
@@ -46,11 +53,17 @@ public class FoosballApplication {
      */
     @EventListener(ApplicationReadyEvent.class)
     public void initialFewPlayersAfterStartup() {
-        LOG.info("Adding four players to make the playing easier.");
+        LOG.info("Adding four players for demonstrating purposes.");
         Role userRole = roleRepository.findByRole("USER");
-        Stream.of("martin", "honza", "katka", "boris")
+        List<Long> playersIds = Stream.of("martin", "honza", "katka", "boris")
                 .map(name -> player(name, userRole)) // use name as password
-                .forEach(playerService::create);
+                .map(playerService::create)
+                .map(Player::getId)
+                .collect(toList());
+
+        LOG.info("Adding two games for demonstrating purposes.");
+        gameService.create(playersIds, playersIds.get(0), playersIds.get(1));
+        gameService.create(playersIds, playersIds.get(0), playersIds.get(3));
     }
 
     private Player player(String name, Role role) {

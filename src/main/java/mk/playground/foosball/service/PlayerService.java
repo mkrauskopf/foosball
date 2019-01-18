@@ -36,6 +36,8 @@ public class PlayerService {
     }
 
     public PlayerStatisticsInfo getStatistics(long playerId) {
-        return new PlayerStatisticsInfo(gameRepository.countWins(playerId), gameRepository.countLooses(playerId));
+        int nOfGames = gameRepository.numberOfGames(playerId);
+        int nOfWins = gameRepository.countWins(playerId);
+        return new PlayerStatisticsInfo(nOfWins, nOfGames - nOfWins);
     }
 }

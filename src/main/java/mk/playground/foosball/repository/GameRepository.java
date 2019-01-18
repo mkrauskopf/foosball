@@ -12,7 +12,7 @@ public interface GameRepository extends JpaRepository<Game, Long> {
     @Query("select count(g) from Game g where g.winner1Id = ?1 or g.winner2Id = ?1")
     int countWins(Long playerId);
 
-    @Query("select count(g) from Game g where g.winner1Id <> ?1 and g.winner2Id <> ?1")
-    int countLooses(Long playerId);
+    @Query("select count(g) from Game g join g.players p where p.id = ?1")
+    int numberOfGames(Long playerId);
 
 }

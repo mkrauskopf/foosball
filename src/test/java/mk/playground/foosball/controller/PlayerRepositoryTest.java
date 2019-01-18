@@ -22,7 +22,7 @@ class PlayerRepositoryTest {
 
     @Test
     public void findAll() {
-        assertThat(playerRepository.findAll()).hasSize(4);
+        assertThat(playerRepository.findAll()).hasSize(6);
     }
 
     @Test

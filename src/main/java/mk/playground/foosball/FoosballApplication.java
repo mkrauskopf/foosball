@@ -57,7 +57,7 @@ public class FoosballApplication {
 
         // players with 'user' role
         Role userRole = roleRepository.findByRole("USER");
-        List<Long> playersIds = Stream.of("martin", "honza", "katka", "boris")
+        List<Long> playersIds = Stream.of("martin", "honza", "katka", "boris", "john")
                 .map(name -> player(name, userRole)) // use name as password
                 .map(playerService::create)
                 .map(Player::getId)
@@ -67,8 +67,8 @@ public class FoosballApplication {
         playerService.create(player("admin", roleRepository.findByRole("ADMIN")));
 
         LOG.info("Adding two games for demonstrating purposes.");
-        gameService.create(playersIds, playersIds.get(0), playersIds.get(1));
-        gameService.create(playersIds, playersIds.get(0), playersIds.get(3));
+        gameService.create(playersIds.subList(0, 4), playersIds.get(0), playersIds.get(1));
+        gameService.create(playersIds.subList(1, 5), playersIds.get(1), playersIds.get(2));
     }
 
     private Player player(String name, Role role) {

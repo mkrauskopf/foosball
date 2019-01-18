@@ -24,17 +24,17 @@ class PlayerControllerTest {
     public void getAllPlayers() {
         assertThat(playerController).isNotNull();
         List<Player> allPlayers = playerController.getAllPlayers();
-        assertThat(allPlayers).hasSize(4);
+        assertThat(allPlayers).hasSize(6);
         assertThat(allPlayers)
                 .extracting(Player::getName)
-                .containsExactly("martin", "honza", "katka", "boris");
+                .containsExactly("martin", "honza", "katka", "boris", "john", "admin");
     }
 
     @Test
     public void statistics() {
         Player martin = playerController.getAllPlayers().get(0);
         PlayerStatisticsInfo statistics = playerController.getStatistics(martin.getId());
-        assertThat(statistics.getNOfWins()).isEqualTo(2);
+        assertThat(statistics.getNOfWins()).isEqualTo(1);
         assertThat(statistics.getNOfLooses()).isEqualTo(0);
     }
 

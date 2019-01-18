@@ -25,7 +25,7 @@ public class GameService {
 
     public Game create(List<Long> playersIds, Long winner1Id, Long winner2Id) {
         List<Player> players = playerRepository.findAllById(playersIds);
-        checkArgument(players.size() == 4, "Exactly four players expected: %s", players);
+        checkArgument(players.size() == 4, "Exactly four players expected (got %s): %s", players.size(), players);
         checkState(playersIds.contains(winner1Id), "%s(id) must be among players: %s", winner1Id, players);
         checkState(playersIds.contains(winner2Id), "%s(id) must be among players: %s", winner2Id, players);
         Game game = Game.builder()
